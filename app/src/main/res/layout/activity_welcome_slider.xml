@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.codekidd.jabbachatapp.WelcomeSliderActivity">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/slide_view_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/dotsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_above="@id/view"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/button_next"
+        android:alpha=".5"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorWhite" />
+
+    <Button
+        android:id="@+id/button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="@drawable/continuebackgroundbtn"
+        android:text="Continue"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:textAllCaps="false"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textColor="@color/colorWhite"
+
+        />
+
+    <Button
+        android:id="@+id/button_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/skipbackground"
+        android:text="Skip"
+        android:paddingStart="5dp"
+        android:drawableStart="@drawable/skip_icon"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+
+        />
+
+
+</RelativeLayout>

@@ -6,7 +6,10 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparentWhite">#cccccc</color>
     <color name="colorSliderOne">#ff8a63b2</color>
+    <color name="colorSliderOneDark">#ff7b57b1</color>
     <color name="colorSliderTwo">#ff41a9cc</color>
+    <color name="colorSliderTwoDark">#ff3394bf</color>
     <color name="colorSliderThree">#ffe2615c</color>
+    <color name="colorSliderThreeDark">#ffd1514e</color>
 
 </resources>
