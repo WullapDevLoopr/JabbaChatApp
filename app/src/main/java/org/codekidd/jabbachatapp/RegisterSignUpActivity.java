@@ -138,8 +138,14 @@ public class RegisterSignUpActivity extends AppCompatActivity {
                    mRegProgress.dismiss();
 //                   meaning user is registered
                   finish(); // this is to avoid user going back to registration page by pressing back btn
-                   Toast.makeText(RegisterSignUpActivity.this,"Account Sign Up is SUCCESSFUL!", Toast.LENGTH_LONG).show();
+                   Toast.makeText(RegisterSignUpActivity.this,"Account Sign Up SUCCESSFUL!", Toast.LENGTH_LONG).show();
+
+//                   add some values to the database before intent
+
+
                    Intent mainIntent = new Intent(RegisterSignUpActivity.this,MainActivity.class);
+//                   below allows users to be able to go back to your main phone
+                   mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
                    startActivity(mainIntent);
                    finish();
 
@@ -157,3 +163,4 @@ public class RegisterSignUpActivity extends AppCompatActivity {
 
 
 }
+

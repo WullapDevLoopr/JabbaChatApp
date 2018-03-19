@@ -44,7 +44,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Connect with all your collegues and loved ones all around the world"
+        android:text="Connect with all your colleagues and loved ones all around the world"
         android:textAlignment="center"
         android:textColor="@color/colorTransparentWhite"
         android:textSize="15dp"

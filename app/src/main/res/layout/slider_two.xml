@@ -16,7 +16,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="90dp"
 
-        android:background="@color/colorSliderTwoDark"
         android:src="@drawable/slideroneimg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

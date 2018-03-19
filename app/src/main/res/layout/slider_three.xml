@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="90dp"
 
-        android:src="@drawable/sliderthreeimg"
+        android:src="@drawable/slid_three"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

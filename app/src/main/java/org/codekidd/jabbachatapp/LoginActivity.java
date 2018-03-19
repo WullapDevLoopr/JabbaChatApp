@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
 
 //        check for Valid Email Address
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            mLoginPassword.setError("Please enter a valid Email Address");
-            mLoginPassword.requestFocus();
+            mLoginEmail.setError("Please enter a valid Email Address");
+            mLoginEmail.requestFocus();
             return;
         }
 
@@ -118,6 +118,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Log in was Successful!",Toast.LENGTH_LONG).show();
 //                    send user to mainActivity by Intents
                     Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+//                    below allows users to be able to go back to your main phone
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(mainIntent);
                     finish();
 
