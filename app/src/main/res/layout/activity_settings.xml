@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorTransparentWhite"
-                app:layout_constraintBottom_toBottomOf="@id/textView5"
+                app:layout_constraintBottom_toBottomOf="@id/display_email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -68,17 +68,18 @@
                 android:id="@+id/settings_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:padding="5dp"
                 android:paddingStart="5dp"
-                android:text="Hello there! I'm using JabbaChat App"
+                android:text=" I'm using JabbaChat App"
                 android:textAllCaps="false"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toStartOf="@+id/settings_status_btn"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toBottomOf="@+id/display_email" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/settings_image_btn"
@@ -98,7 +99,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
                 android:clickable="true"
                 android:padding="5dp"
@@ -106,8 +106,7 @@
                 app:fabSize="mini"
                 app:layout_constraintBottom_toTopOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/settings_status"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/display_email"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
             <View
@@ -129,7 +128,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="serif"
-                android:text="User status can be updated"
+                android:text="update your status"
                 android:drawableStart="@drawable/update_status_icon"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
@@ -141,17 +140,17 @@
                  />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/display_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:fontFamily="serif"
-                android:text="This is your account Username"
                 android:drawableStart="@drawable/person_icon_white"
+                android:fontFamily="monospace"
+                android:text="users email"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
-                android:textColor="@color/colorTransparentWhite"
+                android:textColor="#000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings_display_name" />

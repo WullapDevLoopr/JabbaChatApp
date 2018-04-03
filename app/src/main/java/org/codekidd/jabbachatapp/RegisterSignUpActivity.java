@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterSignUpActivity extends AppCompatActivity {
     private TextInputLayout mDisplayName;
@@ -27,14 +32,16 @@ public class RegisterSignUpActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
 
     private ProgressDialog mRegProgress;
+//    to store more fields at a time instead of just one add the below
+    private DatabaseReference mDatabase;
 
 
 
 
-
+//============================GITHUB @Dcodekidd========2018==========BINGHAM UNIVERSITY===========================
 
 //written by Nyako Epahraim Alhamdu 12th March 2018
-//    GITHUB @DcodeKidd
+//    GITHUB @Dcodekidd
 // START onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +84,9 @@ public class RegisterSignUpActivity extends AppCompatActivity {
 
     } //END onCreate
 
-
+//              ================REGISTER USER METHOD===============================================
 //Register new user method START register_user()
-    private void register_user(String display_name, String email, String password) {
+    private void register_user(final String display_name, final String email, String password) {
 
         //               TASKS TO CHECK IF EMAIL, PASSWORD FIELDS ARE EMPTY? ALSO IF PASSWORD LENGTH IS TOO SHORT ETC
 
@@ -135,13 +142,38 @@ public class RegisterSignUpActivity extends AppCompatActivity {
 
 //               check if task is successful
                if (task.isSuccessful()){
-                   mRegProgress.dismiss();
+
+//                   ================================UID=====================================
+//                   create a firebase user the current user
+                   FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+//                   getting the user ID UID
+                   String uid = current_user.getUid();
+//                   after getting the uid the data can now be stored accordingly in the firebase raltime database
+//                   the below points to the root dir
+                   mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+//                   now storing the values for the user To add complex data im creating a HashMap
+//                   ==========================HASHMAP=======================================
+                   HashMap<String,String> userMap = new HashMap<>();
+                   userMap.put("name",display_name);
+                   userMap.put("email",email);
+                   userMap.put("status","Hey there! I'm using jabbaChat App");
+                   userMap.put("bio","Work Bio *optional");
+                   userMap.put("hobbies","My Hobbies *optional");
+                   userMap.put("image","default");
+                   userMap.put("thumb_image","default");
+//                   now to set our values
+                   mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                       @Override
+                       public void onComplete(@NonNull Task<Void> task) {
+//                           check if it does the work
+                           if (task.isSuccessful()){
+
+                            mRegProgress.dismiss();
 //                   meaning user is registered
                   finish(); // this is to avoid user going back to registration page by pressing back btn
                    Toast.makeText(RegisterSignUpActivity.this,"Account Sign Up SUCCESSFUL!", Toast.LENGTH_LONG).show();
 
 //                   add some values to the database before intent
-
 
                    Intent mainIntent = new Intent(RegisterSignUpActivity.this,MainActivity.class);
 //                   below allows users to be able to go back to your main phone
@@ -149,10 +181,17 @@ public class RegisterSignUpActivity extends AppCompatActivity {
                    startActivity(mainIntent);
                    finish();
 
+                           }
+                       }
+                   });
+
+
+
+
                } else {
                    mRegProgress.hide();
 //                   Error user is not registered successfully
-                   Toast.makeText(RegisterSignUpActivity.this,"Error! Please check and try again", Toast.LENGTH_LONG).show();
+                   Toast.makeText(RegisterSignUpActivity.this,"Oops! something went wrong, Please check and try again", Toast.LENGTH_LONG).show();
 
                }
            }

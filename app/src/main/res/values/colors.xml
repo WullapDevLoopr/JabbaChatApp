@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00bcd4</color>
-    <color name="colorPrimaryDark">#0097a7</color>
+    <color name="colorPrimary">#ff1da1f3</color>
+    <color name="colorPrimaryDark">#FF0671B3</color>
     <color name="colorAccent">#ff5521</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparentWhite">#cccccc</color>
     <color name="colorSliderOne">#8a63b2</color>
     <color name="colorSliderOneDark">#ff7b57b1</color>
-    <color name="colorSliderTwo">#ff41a9cc</color>
+    <color name="colorSliderTwo">#ff1da1f3</color>
     <color name="colorSliderTwoDark">#ff3394bf</color>
     <color name="colorSliderThree">#ffe2615c</color>
     <color name="colorSliderThreeDark">#ffd1514e</color>

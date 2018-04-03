@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                 }else {
 //                    user is not successfully logged in
                     mLogProgress.hide();
-                    Toast.makeText(LoginActivity.this,"Error! check and try again",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Oops! something went wrong, check and try again",Toast.LENGTH_LONG).show();
 
 
 
