@@ -41,6 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:background="@drawable/continuebackgroundbtn"
+        android:drawableEnd="@drawable/continue_point"
         android:text="Continue"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="40dp"
@@ -63,7 +64,7 @@
         android:text="Skip"
         android:fontFamily="sans-serif"
         android:textStyle="bold"
-        android:drawableEnd="@drawable/start_arrow_icon"
+        android:drawableEnd="@drawable/skip_run"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
 

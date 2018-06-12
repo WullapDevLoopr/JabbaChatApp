@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "483652689907",
+    "firebase_url": "https://jabbachatapp.firebaseio.com",
+    "project_id": "jabbachatapp",
+    "storage_bucket": "jabbachatapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483652689907:android:f12c97d982f055ac",
+        "android_client_info": {
+          "package_name": "org.codekidd.jabbachatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483652689907-vfn3npd479gta7r3vd28p54b2b8qvhec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.codekidd.jabbachatapp",
+            "certificate_hash": "b8a9d808ab9ce015592859f5aa44e99440dde31c"
+          }
+        },
+        {
+          "client_id": "483652689907-3eb3ehaj8us6ctjfv6u6t0n09bfr23j6.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "483652689907-3eb3ehaj8us6ctjfv6u6t0n09bfr23j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlv6NcZ_iKBa4QK2ChtE6FeefNdmaqBk4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483652689907-3eb3ehaj8us6ctjfv6u6t0n09bfr23j6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

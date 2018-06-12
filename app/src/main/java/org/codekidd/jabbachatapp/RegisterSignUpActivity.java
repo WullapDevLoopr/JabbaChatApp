@@ -157,8 +157,8 @@ public class RegisterSignUpActivity extends AppCompatActivity {
                    userMap.put("name",display_name);
                    userMap.put("email",email);
                    userMap.put("status","Hey there! I'm using jabbaChat App");
-                   userMap.put("bio","Work Bio *optional");
-                   userMap.put("hobbies","My Hobbies *optional");
+                   userMap.put("bio","O c c u p a t i o n");
+                   userMap.put("hobbies","H o b b i e s");
                    userMap.put("image","default");
                    userMap.put("thumb_image","default");
 //                   now to set our values

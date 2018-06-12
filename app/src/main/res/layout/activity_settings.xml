@@ -8,8 +8,6 @@
     tools:context="org.codekidd.jabbachatapp.SettingsActivity">
 
 
-
-
     <android.support.v7.widget.CardView
 
         android:layout_width="match_parent"
@@ -17,10 +15,12 @@
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -72,6 +72,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:padding="5dp"
+                android:paddingEnd="5dp"
                 android:paddingStart="5dp"
                 android:text=" I'm using JabbaChat App"
                 android:textAllCaps="false"
@@ -114,10 +115,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorTransparentWhite"
-                app:layout_constraintTop_toBottomOf="@id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView4"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
@@ -127,17 +128,16 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="serif"
-                android:text="update your status"
                 android:drawableStart="@drawable/update_status_icon"
+                android:fontFamily="serif"
+                android:text="ACCOUNT STATUS"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
-                app:layout_constraintTop_toBottomOf="@id/settings_status"
-
                 android:textColor="@color/colorTransparentWhite"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                 />
+                app:layout_constraintTop_toBottomOf="@id/settings_status" />
 
             <TextView
                 android:id="@+id/display_email"
@@ -150,7 +150,7 @@
                 android:text="users email"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
-                android:textColor="#000"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings_display_name" />
@@ -164,12 +164,13 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-condensed"
                 android:padding="5dp"
+                android:paddingEnd="5dp"
                 android:paddingStart="5dp"
-                android:text="Work Bio"
+                android:text="O c c u p a t i o n"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintEnd_toStartOf="@+id/settings_bio_btn"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -199,11 +200,11 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Update your work bio"
-                android:textColor="@color/colorTransparentWhite"
-                android:paddingStart="5dp"
-                android:fontFamily="serif"
                 android:drawableStart="@drawable/work_bio_icon_transparent"
+                android:fontFamily="serif"
+                android:paddingStart="5dp"
+                android:text="WORK BIO"
+                android:textColor="@color/colorTransparentWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings_display_bio" />
@@ -226,11 +227,12 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-condensed"
                 android:padding="5dp"
-                android:text="Hobbies "
+                android:paddingEnd="5dp"
+                android:text="H o b b i e s "
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintEnd_toStartOf="@+id/settings_hobby_btn"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -246,7 +248,7 @@
                 android:drawableStart="@drawable/hobby_icon_transparent"
                 android:fontFamily="serif"
                 android:paddingStart="5dp"
-                android:text="Update your hobbies and personal fun activities"
+                android:text="HOBBIES"
                 android:textColor="@color/colorTransparentWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
