@@ -3,6 +3,7 @@ package org.codekidd.jabbachatapp;
 //libraries imported
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -29,9 +30,15 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -104,6 +111,8 @@ public class SettingsActivity extends AppCompatActivity {
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
                 String email = dataSnapshot.child("email").getValue().toString();
 
+
+
 //                now is to set the values to our layout in settings activity ===change the values
                 mName.setText(name);
                 mStatus.setText(status);
@@ -111,11 +120,13 @@ public class SettingsActivity extends AppCompatActivity {
                 mHobbies.setText(hobbies);
                 mDisplayEmail.setText(email);
 
+                if (!image.equals("default")) {
+
 //                this allows picasso to retrive the image and display it in the cirleimageview
-                Picasso.with(SettingsActivity.this).load(image).into(mDisplayImage);
+                    Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.settings_img).into(mDisplayImage);
 
 
-
+                }
 
             }
 
@@ -199,11 +210,19 @@ public class SettingsActivity extends AppCompatActivity {
 
 
             Uri imageUri = data.getData();
+
+
+
             // start cropping activity for pre-acquired image saved on the device
             CropImage.activity(imageUri)
                     .setAspectRatio(1,1)
+                    .setMinCropWindowSize(500,500)
                     .start(this);
+
 //            Toast.makeText(SettingsActivity.this,imageUri, Toast.LENGTH_LONG).show();
+        } else {
+//            error error check: if profile image selection is discarded progress dialo still appears fix it.
+
         }
 
 
@@ -214,10 +233,35 @@ public class SettingsActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 Uri resultUri = result.getUri();
+//compressing thumb image
+                File thumb_filePath = new File(resultUri.getPath());
 
                 String current_user_id = mCurrentUser.getUid();
 
+
+                Bitmap thumb_bitmap = null;
+                try {
+                    thumb_bitmap = new Compressor(this)
+                            .setMaxHeight(200)
+                            .setMaxWidth(200)
+                            .setQuality(75)
+                            .compressToBitmap(thumb_filePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+//                    converts data to byte form allowing upload to database
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                final byte[] thumb_byte = baos.toByteArray();
+
+
+
                 StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id+".jpg");
+                final StorageReference thumb_filepath = mImageStorage.child("profile_images").child("thumbs").child(current_user_id +".jpg");
+
+
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -225,24 +269,51 @@ public class SettingsActivity extends AppCompatActivity {
                             Toast.makeText(SettingsActivity.this,"uploading...", Toast.LENGTH_LONG).show();
 //                            we wamt to download the image and store it in the realtime database image object
 
-                            String download_url = task.getResult().getDownloadUrl().toString();
-//                            now we have stored it the string download_url next is to store in database
-                            mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            final String download_url = task.getResult().getDownloadUrl().toString();
+
+                            UploadTask uploadTask = thumb_filepath.putBytes(thumb_byte);
+                            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        mProgresDialog.dismiss();
-                                        Toast.makeText(SettingsActivity.this,"success uploading image...", Toast.LENGTH_LONG).show();
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
+
+                                    String thumb_downloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+
+                                    if (thumb_task.isSuccessful()){
+
+                                        Map update_hashMap = new HashMap<>();
+                                        update_hashMap.put("image",download_url);
+                                        update_hashMap.put("thumb_image", thumb_downloadUrl);
+
+                                        //                            now we have stored it the string download_url next is to store in database
 
 
+                                        mUserDatabase.updateChildren(update_hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    mProgresDialog.dismiss();
+                                                    Toast.makeText(SettingsActivity.this,"success uploading image...", Toast.LENGTH_LONG).show();
+
+
+                                                } else {
+                                                    Toast.makeText(SettingsActivity.this,"error... check connection and try again", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        });
                                     } else {
-                                        Toast.makeText(SettingsActivity.this,"error...", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SettingsActivity.this,"error handling in uploading thumbnail", Toast.LENGTH_LONG).show();
+                                        mProgresDialog.dismiss();
+
                                     }
                                 }
                             });
 
+
+
+
+
                         }else {
-                            Toast.makeText(SettingsActivity.this,"error uploading image...", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SettingsActivity.this,"error uploading image...check connection and try again", Toast.LENGTH_LONG).show();
 
                             mProgresDialog.dismiss();
                         }

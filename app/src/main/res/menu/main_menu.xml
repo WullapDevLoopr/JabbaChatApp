@@ -7,7 +7,10 @@
         android:title="Account Settings" />
     <item
         android:id="@+id/main_all_btn"
-        android:title="All JabbaChat Users" />
+        android:title="JabbaChat Users" />
+    <item
+        android:id="@+id/main_privacy"
+        android:title="Privacy Policies"/>
     <item
         android:id="@+id/main_logout_btn"
         android:title="Log Out" />
