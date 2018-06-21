@@ -10,8 +10,15 @@
         android:title="JabbaChat Users" />
     <item
         android:id="@+id/main_privacy"
-        android:title="Privacy Policies"/>
+        android:title="Privacy Policy"/>
+    <item
+        android:id="@+id/main_terms_of_service"
+        android:title="Terms of Service"/>
+    <item
+        android:id="@+id/main_about"
+        android:title="About JabbaChat App"/>
+
     <item
         android:id="@+id/main_logout_btn"
-        android:title="Log Out" />
+        android:title="Log Out of Account" />
 </menu>
