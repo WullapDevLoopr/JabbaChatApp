@@ -94,21 +94,22 @@
                 app:layout_constraintStart_toStartOf="@+id/settings_image"
                 app:srcCompat="@drawable/camera_icon" />
 
-            <android.support.design.widget.FloatingActionButton
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/settings_status_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="32dp"
+                android:background="@drawable/signup_btn_background"
                 android:clickable="true"
                 android:padding="5dp"
-                app:backgroundTint="@color/colorPrimaryDark"
-                app:fabSize="mini"
+                android:drawableEnd="@drawable/update_status_icon"
+                android:textColor="@color/colorWhite"
+                android:text="edit"
                 app:layout_constraintBottom_toTopOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/display_email"
-                app:srcCompat="@android:drawable/ic_menu_edit" />
+                app:layout_constraintTop_toBottomOf="@+id/display_email" />
 
             <View
                 android:id="@+id/view2"
@@ -176,7 +177,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-            <android.support.design.widget.FloatingActionButton
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/settings_bio_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -184,14 +185,16 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
+                android:background="@drawable/signup_btn_background"
                 android:clickable="true"
-                app:backgroundTint="@android:color/holo_green_dark"
-                app:fabSize="mini"
+                android:drawableEnd="@drawable/work_bio_icon"
+                android:textColor="@color/colorWhite"
+                android:text="edit"
+
                 app:layout_constraintBottom_toTopOf="@+id/textView7"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
-                app:srcCompat="@drawable/work_bio_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -254,7 +257,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/settings_diplay_hobbies" />
 
-            <android.support.design.widget.FloatingActionButton
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/settings_hobby_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -262,14 +265,16 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
+                android:background="@drawable/signup_btn_background"
                 android:clickable="true"
-                app:backgroundTint="@color/colorSliderOne"
-                app:fabSize="mini"
+                android:text="edit"
+                android:textColor="@color/colorWhite"
+                android:drawableEnd="@drawable/hobby_icon"
+
                 app:layout_constraintBottom_toTopOf="@+id/textView9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/view3"
-                app:srcCompat="@drawable/hobby_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
 
             <View
                 android:layout_width="match_parent"

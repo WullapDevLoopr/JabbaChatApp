@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -55,10 +58,10 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView mHobbies;
     private TextView mDisplayEmail;
 
-    private FloatingActionButton mStatusBtn;
+    private Button mStatusBtn;
     private FloatingActionButton mImageBtn;
-    private FloatingActionButton mBioBtn;
-    private FloatingActionButton mHobbiesBtn;
+    private Button mBioBtn;
+    private Button mHobbiesBtn;
 
     private static final int GALLERY_PICK = 1;
 //creating storage reference
@@ -82,9 +85,9 @@ public class SettingsActivity extends AppCompatActivity {
 
 //        ========BTNS========
         mImageBtn = (FloatingActionButton)findViewById(R.id.settings_image_btn);
-        mStatusBtn = (FloatingActionButton)findViewById(R.id.settings_status_btn);
-        mBioBtn = (FloatingActionButton)findViewById(R.id.settings_bio_btn);
-        mHobbiesBtn = (FloatingActionButton)findViewById(R.id.settings_hobby_btn);
+        mStatusBtn = (Button)findViewById(R.id.settings_status_btn);
+        mBioBtn = (Button)findViewById(R.id.settings_bio_btn);
+        mHobbiesBtn = (Button)findViewById(R.id.settings_hobby_btn);
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
@@ -95,7 +98,11 @@ public class SettingsActivity extends AppCompatActivity {
 //          get user id
         String current_uid = mCurrentUser.getUid();
 
+
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
+//        offline capability
+        mUserDatabase.keepSynced(true);
+
 //        now to retriev all the values of the object above add value event listener
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
 //                Toast.makeText(SettingsActivity.this,dataSnapshot.toString(),Toast.LENGTH_LONG).show();
 
                 String name = dataSnapshot.child("name").getValue().toString();
-                String image = dataSnapshot.child("image").getValue().toString();
+                final String image = dataSnapshot.child("image").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String bio = dataSnapshot.child("bio").getValue().toString();
                 String hobbies = dataSnapshot.child("hobbies").getValue().toString();
@@ -123,8 +130,21 @@ public class SettingsActivity extends AppCompatActivity {
                 if (!image.equals("default")) {
 
 //                this allows picasso to retrive the image and display it in the cirleimageview
-                    Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.settings_img).into(mDisplayImage);
+                   // Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.settings_img).into(mDisplayImage);
 
+                    Picasso.with(SettingsActivity.this).load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.settings_img).into(mDisplayImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+//                            im made image final
+                            Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.settings_img).into(mDisplayImage);
+
+                        }
+                    });
 
                 }
 

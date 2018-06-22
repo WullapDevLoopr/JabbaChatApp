@@ -77,7 +77,7 @@ public class HobbiesActivity extends AppCompatActivity {
 
                 String text = editCounter_hobbies.getText().toString();
                 int symbols = text.length();
-                counterTextview.setText("max " + symbols + "/90");
+                counterTextview.setText("max " + symbols + "/40");
             }
 
             @Override

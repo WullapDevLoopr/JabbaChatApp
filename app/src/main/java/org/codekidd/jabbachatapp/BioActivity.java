@@ -79,7 +79,7 @@ public class BioActivity extends AppCompatActivity {
 
                 String text = editCounter_bio.getText().toString();
                 int symbols = text.length();
-                counterTextview.setText("max " + symbols + "/90");
+                counterTextview.setText("max " + symbols + "/40");
             }
 
             @Override
