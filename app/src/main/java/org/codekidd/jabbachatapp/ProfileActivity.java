@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +27,7 @@ import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -38,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView mProfileEmail;
     private TextView mProfileFriendsCount;
     private Button mProfileSendReqBtn;
+    private Button mDeclineBtn;
 
 //    create a database reference
     private DatabaseReference mUsersDatabase;
@@ -47,9 +50,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     private DatabaseReference mFriendDatabase;
 
+    private DatabaseReference mNotificationDatabase;
+
     private FirebaseUser mCurrent_user;
 
     private String mCurrent_state;
+
+    private android.support.v7.widget.Toolbar mToolbar;
+
 
 
 
@@ -69,7 +77,21 @@ public class ProfileActivity extends AppCompatActivity {
 
         mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
 
+        mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");
+
         mCurrent_user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+
+        mToolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.profile_toolbar);
+        setSupportActionBar(mToolbar);
+//        return user's name instead of user's id as seen below ====>
+        getSupportActionBar().setTitle("Users Profile");
+
+        getSupportActionBar().setIcon(R.drawable.blog_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
        mProfileImage = (ImageView)findViewById(R.id.profile_image);
        mProfileName = (TextView)findViewById(R.id.profile_displayName);
@@ -79,6 +101,7 @@ public class ProfileActivity extends AppCompatActivity {
        mProfileEmail = (TextView) findViewById(R.id.profile_email);
        mProfileFriendsCount = (TextView) findViewById(R.id.profile_totalFriends);
        mProfileSendReqBtn = (Button) findViewById(R.id.profile_send_req_btn);
+       mDeclineBtn = (Button)findViewById(R.id.profile_decline_btn);
 
         mCurrent_state = "not_friends";
 
@@ -133,10 +156,16 @@ public class ProfileActivity extends AppCompatActivity {
                                mCurrent_state = "req_received";
                                mProfileSendReqBtn.setText("Accept Friend Request");
 
+                               mDeclineBtn.setVisibility(View.VISIBLE);
+                               mDeclineBtn.setEnabled(true);
+
                            }else if (req_type.equals("sent")){
 
                                mCurrent_state = "req_sent";
                                mProfileSendReqBtn.setText("Cancel Friend Request");
+
+                               mDeclineBtn.setVisibility(View.INVISIBLE);
+                               mDeclineBtn.setEnabled(false);
 
                            }
 
@@ -153,6 +182,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                                        mCurrent_state = "friends";
                                        mProfileSendReqBtn.setText("Unfriend this User");
+
+                                       mDeclineBtn.setVisibility(View.INVISIBLE);
+                                       mDeclineBtn.setEnabled(false);
                                    }
 
                                    mProgressDialog.dismiss();
@@ -212,11 +244,27 @@ public class ProfileActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
+                                        HashMap<String, String> notificationData = new HashMap<>();
+                                        notificationData.put("from", mCurrent_user.getUid());
+                                        notificationData.put("type","request");
 
-//                                        i want to change the current_state
-                                        mCurrent_state = "req_sent";
-                                        mProfileSendReqBtn.setText("Cancel Friend Request");
+//                                        NOTIFICATIONS USING FCM firebase cloud messaging...
 
+                                        mNotificationDatabase.child(user_id).push().setValue(notificationData)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+//                                                        i want to change the current_state
+                                                        mCurrent_state = "req_sent";
+                                                        mProfileSendReqBtn.setText("Cancel Friend Request");
+
+                                                        mDeclineBtn.setVisibility(View.INVISIBLE);
+                                                        mDeclineBtn.setEnabled(false);
+
+                                                    }
+                                                });
+
+//
 
 
 //                                        Toast.makeText(ProfileActivity.this,"friend request sent successfully",Toast.LENGTH_LONG).show();
@@ -253,6 +301,9 @@ public class ProfileActivity extends AppCompatActivity {
 //                                        i want to change the current_state
                                             mCurrent_state = "not_friends";
                                             mProfileSendReqBtn.setText("Send Friend Request");
+
+                                            mDeclineBtn.setVisibility(View.INVISIBLE);
+                                            mDeclineBtn.setEnabled(false);
 
                                         }
                                     });
@@ -296,6 +347,9 @@ public class ProfileActivity extends AppCompatActivity {
 //                                        i want to change the current_state
                                                                     mCurrent_state = "friends";
                                                                     mProfileSendReqBtn.setText("Unfriend this User");
+
+                                                                    mDeclineBtn.setVisibility(View.INVISIBLE);
+                                                                    mDeclineBtn.setEnabled(false);
 
                                                                 }
                                                             });

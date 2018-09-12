@@ -56,14 +56,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/circleImageView2"
                     android:layout_width="275dp"
                     android:layout_height="194dp"
                     android:layout_marginEnd="70dp"
                     android:layout_marginStart="70dp"
                     android:layout_marginTop="4dp"
-                    android:src="@drawable/signup_svg_img"
+                    android:src="@drawable/jabbachatintrologo"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,9 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-
+                    android:nestedScrollingEnabled="true"
+                    android:isScrollContainer="true"
+                    android:scrollbars="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/circleImageView2">
@@ -84,9 +86,9 @@
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_layout_white"
+                        android:background="@drawable/new_text_background"
                         android:drawableStart="@drawable/person_icon"
-                        android:fontFamily="sans-serif-condensed"
+                        android:fontFamily="serif"
                         android:hint="Username"
                         android:inputType="textAutoComplete"
                         android:padding="10dp"
@@ -108,10 +110,12 @@
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_layout_white"
+                        android:background="@drawable/new_text_background"
                         android:drawableStart="@drawable/email_icon"
-                        android:fontFamily="sans-serif-condensed"
+                        android:fontFamily="serif"
                         android:hint="Email"
+                        android:isScrollContainer="true"
+                        android:scrollbars="vertical"
                         android:inputType="textAutoComplete|textEmailAddress"
                         android:padding="10dp"
                         android:paddingEnd="5dp" />
@@ -124,7 +128,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-
+                    app:passwordToggleEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reg_email">
@@ -132,11 +136,13 @@
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_layout_white"
+                        android:background="@drawable/new_text_background"
                         android:drawableStart="@drawable/lock_icon"
-                        android:fontFamily="sans-serif-condensed"
+                        android:fontFamily="serif"
+                        android:isScrollContainer="true"
+                        android:scrollbars="vertical"
                         android:hint="Password"
-                        android:inputType="textVisiblePassword"
+                        android:inputType="textPassword"
                         android:padding="10dp"
                         android:paddingEnd="5dp" />
                 </android.support.design.widget.TextInputLayout>

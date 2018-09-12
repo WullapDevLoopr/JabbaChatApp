@@ -36,7 +36,8 @@
                 android:layout_marginEnd="27dp"
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/start_svg_img"
+
+                android:src="@drawable/profile_img_jabbachat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +66,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/signupbtnback_dark"
-                android:drawableEnd="@drawable/signin_bike"
+                android:drawableEnd="@drawable/continue_point"
                 android:text="Sign Up New Account"
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
@@ -116,7 +117,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/signin_btn_background"
-                android:drawableEnd="@drawable/signin_bike"
+                android:drawableEnd="@drawable/continue_point"
                 android:text="Sign Into Account"
                 android:paddingEnd="10dp"
                 android:textAllCaps="false"

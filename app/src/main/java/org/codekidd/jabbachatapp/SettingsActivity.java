@@ -254,6 +254,12 @@ public class SettingsActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
 //compressing thumb image
+                /*
+                * this is for compressing image that is: by compressing image the quality reduces
+                * and when quality reduces the size of image also reduces
+                * thereby allowing app and database to process image faster. Same method is implemented ny WhatsApp
+                *
+                * */
                 File thumb_filePath = new File(resultUri.getPath());
 
                 String current_user_id = mCurrentUser.getUid();

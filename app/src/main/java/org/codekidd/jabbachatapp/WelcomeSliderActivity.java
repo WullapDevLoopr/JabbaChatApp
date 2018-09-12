@@ -142,9 +142,9 @@ public class WelcomeSliderActivity extends AppCompatActivity {
         }
 
     }
-//if u dont wnrt user to go back to slider after "Get Started" change below to false!
+//if u dont wnrt user to go back to slider after "Get Started" change below to false! but if you want every time app launch slidder comes in == true
     private void startMainActivity(){
-        setFirstTimeStartStatus(true);
+        setFirstTimeStartStatus(false);
         startActivity(new Intent(WelcomeSliderActivity.this, MainActivity.class));
         finish();
 

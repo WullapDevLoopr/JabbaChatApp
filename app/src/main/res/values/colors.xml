@@ -11,5 +11,6 @@
     <color name="colorSliderTwoDark">#ff3394bf</color>
     <color name="colorSliderThree">#ffe2615c</color>
     <color name="colorSliderThreeDark">#ffd1514e</color>
+    <color name="colorGrey">#cccccc</color>
 
 </resources>

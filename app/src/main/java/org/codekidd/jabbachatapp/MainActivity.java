@@ -48,17 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        setting the tab icon
-        mTabLayout.getTabAt(0).setIcon(R.drawable.blog_icon);
-        mTabLayout.getTabAt(1).setIcon(R.drawable.chat_icon);
-        mTabLayout.getTabAt(2).setIcon(R.drawable.friends_icon);
-        mTabLayout.getTabAt(3).setIcon(R.drawable.request_icon);
+
+        mTabLayout.getTabAt(0).setIcon(R.drawable.chat_icon);
+        mTabLayout.getTabAt(1).setIcon(R.drawable.friends_icon);
+        mTabLayout.getTabAt(2).setIcon(R.drawable.request_icon);
 
 
 //i want to change and updaate color of icons as it slides here
-        mTabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
+
+        mTabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#cccccc"), PorterDuff.Mode.SRC_IN);
         mTabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#cccccc"), PorterDuff.Mode.SRC_IN);
         mTabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#cccccc"), PorterDuff.Mode.SRC_IN);
-        mTabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#cccccc"), PorterDuff.Mode.SRC_IN);
 
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

@@ -13,9 +13,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLogin_btn;
     private ProgressDialog mLogProgress;
     private FirebaseAuth mAuth;
+
+//    ctreatign database reference
+    private DatabaseReference mUserDatabase;
 
 
     @Override
@@ -43,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mLogProgress = new ProgressDialog(this);
+
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mLoginEmail = (TextInputLayout)findViewById(R.id.login_email);
         mLoginPassword = (TextInputLayout)findViewById(R.id.login_password);
@@ -65,6 +74,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+//    already have account? sign up
+    public void onSignUpPressed(View view){
+        Intent signupRedirectIntent = new Intent(LoginActivity.this,RegisterSignUpActivity.class);
+        startActivity(signupRedirectIntent);
+        finish();
+    }
+
 //Login User Method
     private void loginUser(String email, String password) {
 
@@ -114,14 +131,33 @@ public class LoginActivity extends AppCompatActivity {
 
 //                check if user is logged in
                 if (task.isSuccessful()){
+
                     mLogProgress.dismiss();
-                    Toast.makeText(LoginActivity.this,"Log in was Successful!",Toast.LENGTH_LONG).show();
+
+//                    store users token id ===used later for firebase notifications Functions
+
+
+                    String current_user_id = mAuth.getCurrentUser().getUid();
+
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+//                    storing user and token
+                    mUserDatabase.child(current_user_id).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            Toast.makeText(LoginActivity.this,"Log in was Successful!",Toast.LENGTH_LONG).show();
 //                    send user to mainActivity by Intents
-                    Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
+                            Intent mainIntent = new Intent(LoginActivity.this,MainActivity.class);
 //                    below allows users to be able to go back to your main phone
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(mainIntent);
-                    finish();
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(mainIntent);
+                            finish();
+                        }
+                    });
+
+
+
 
 
                 }else {
