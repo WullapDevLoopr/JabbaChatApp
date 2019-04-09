@@ -50,7 +50,7 @@ class SectionsPagerAdapter extends FragmentPagerAdapter{
             case 1:
                 return "FRIENDS";
             case 2:
-                return null;
+                return "REQUEST";
 
             default:
                 return null;

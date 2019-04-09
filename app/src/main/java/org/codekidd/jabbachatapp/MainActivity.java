@@ -13,6 +13,9 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private DatabaseReference mUserRef;
+
     private TabLayout mTabLayout;
 
 
@@ -37,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar)findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("JabbaChat App");
+
+
+        if (mAuth.getCurrentUser() != null) {
+
+
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+
+        }
 
         //tabs
         mViewPager = (ViewPager)findViewById(R.id.main_tabPager);
@@ -85,19 +99,40 @@ public class MainActivity extends AppCompatActivity {
     } //END onCreate()
 
 //    create onStart method used to check continuously
-    public void onStart() {
-        super.onStart();
+@Override
+public void onStart() {
+    super.onStart();
     // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        the above is the key steps to check of user is logged in or not. By getting user and storing in variable "currentUser"
-//        Again i can check if user is not logged in by using if-else statms as seen below
-        if (currentUser == null){
+    FirebaseUser currentUser = mAuth.getCurrentUser();
 
-            sendToStart();
+    if(currentUser == null){
 
+        sendToStart();
+
+    } else {
+
+        mUserRef.child("online").setValue("true");
+
+    }
+
+}
+
+        @Override
+        protected void onStop() {
+            super.onStop();
+
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+
+            if(currentUser != null) {
+
+                mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+
+            }
 
         }
-} //END onStart()
+
+
+ //END onStart()
 
 
 

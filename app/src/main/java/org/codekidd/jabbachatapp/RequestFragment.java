@@ -14,7 +14,10 @@ import android.view.ViewGroup;
 public class RequestFragment extends Fragment {
 
 
-    public RequestFragment() {
+
+
+
+    public RequestFragment () {
         // Required empty public constructor
     }
 

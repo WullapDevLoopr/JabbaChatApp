@@ -77,9 +77,17 @@ public class RegisterSignUpActivity extends AppCompatActivity {
                 String email = mEmail.getEditText().getText().toString();
                 String password = mPassword.getEditText().getText().toString();
 
+                if(!TextUtils.isEmpty(display_name) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)){
 
-//                whats next is to process the registration Signup new user
-                register_user(display_name,email,password);
+                    mRegProgress.setTitle("Registering User");
+                    mRegProgress.setMessage("Please wait while we create your account !");
+                    mRegProgress.setCanceledOnTouchOutside(false);
+                    mRegProgress.show();
+
+                    register_user(display_name, email, password);
+
+                }
+
 
             }
         });
@@ -131,17 +139,10 @@ public class RegisterSignUpActivity extends AppCompatActivity {
 
 
 
-//                set progress dialog
-
-        mRegProgress.setTitle("Signing you Up!");
-        mRegProgress.setMessage("Please wait... setting up your Account");
-        mRegProgress.setCanceledOnTouchOutside(false);
-        mRegProgress.show();
-
-
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
            @Override
            public void onComplete(@NonNull Task<AuthResult> task) {
+
 
 
 //               check if task is successful
@@ -157,53 +158,37 @@ public class RegisterSignUpActivity extends AppCompatActivity {
 //                   the below points to the root dir
                    mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 //                   now storing the values for the user To add complex data im creating a HashMap
+
+
+                   String device_token = FirebaseInstanceId.getInstance().getToken();
+
+
 //                   ==========================HASHMAP=======================================
                    HashMap<String,String> userMap = new HashMap<>();
                    userMap.put("name",display_name);
                    userMap.put("email",email);
-                   userMap.put("status","Hey there! I'm using jabbaChat App");
-                   userMap.put("bio","default occupation");
-                   userMap.put("hobbies","default hobbies");
+                   userMap.put("status","Hey there! I'm using jabbaChat App.");
+                   userMap.put("bio","my occupation");
+                   userMap.put("hobbies","my hobbies");
                    userMap.put("image","default");
                    userMap.put("thumb_image","default");
+
+                   userMap.put("device_token", device_token);
+
 //                   now to set our values
                    mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                        @Override
                        public void onComplete(@NonNull Task<Void> task) {
 //                           check if it does the work
-                           if (task.isSuccessful()){
+                           if (task.isSuccessful()) {
 
+                               mRegProgress.dismiss();
 
+                               Intent mainIntent = new Intent(RegisterSignUpActivity.this, MainActivity.class);
+                               mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                               startActivity(mainIntent);
+                               finish();
 
-
-                            mRegProgress.dismiss();
-
-
-//                    store users token id ===used later for firebase notifications Functions
-                               String current_user_id = mAuth.getCurrentUser().getUid();
-                               String deviceToken = FirebaseInstanceId.getInstance().getToken();
-
-//                               storing user and token
-                               mUserDatabase.child(current_user_id).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                   @Override
-                                   public void onSuccess(Void aVoid) {
-
-
-
-//                   meaning user is registered
-                                       finish(); // this is to avoid user going back to registration page by pressing back btn
-                                       Toast.makeText(RegisterSignUpActivity.this,"Account Sign Up SUCCESSFUL!", Toast.LENGTH_LONG).show();
-
-//                   add some values to the database before intent
-
-                                       Intent mainIntent = new Intent(RegisterSignUpActivity.this,MainActivity.class);
-//                   below allows users to be able to go back to your main phone
-                                       mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |  Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                       startActivity(mainIntent);
-                                       finish();
-
-                                   }
-                               });
 
 
 
